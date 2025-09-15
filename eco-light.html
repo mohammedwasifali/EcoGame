@@ -18,7 +18,6 @@
     </header>
 
     <main id="room" aria-label="Room with appliances">
-        <!-- HUD bottom-left -->
         <section id="hud" aria-label="Game controls">
             <input id="playerName" type="text" placeholder="Name" aria-label="Player name" />
             <button id="startBtn" class="btn-primary small" type="button" aria-haspopup="dialog">Start (60s)</button>
@@ -27,56 +26,53 @@
             <span id="points" aria-live="polite">0 pts</span>
         </section>
 
-        <!-- Left control dock (middle left) -->
         <aside id="panel-left" aria-label="Left controls">
             <h2>Controls</h2>
             <div class="switches">
                 <button class="switch" data-device="bigbulb" aria-pressed="false" aria-label="Big Bulb">
-          <span class="label off">OFF</span>
-          <span class="label on">ON</span>
-          <span class="thumb" aria-hidden="true"></span>
-          <span class="name">Big Bulb</span>
-        </button>
+                  <span class="label off">OFF</span>
+                  <span class="label on">ON</span>
+                  <span class="thumb" aria-hidden="true"></span>
+                  <span class="name">Big Bulb</span>
+                </button>
                 <button class="switch" data-device="tv" aria-pressed="false" aria-label="TV">
-          <span class="label off">OFF</span>
-          <span class="label on">ON</span>
-          <span class="thumb" aria-hidden="true"></span>
-          <span class="name">TV</span>
-        </button>
+                  <span class="label off">OFF</span>
+                  <span class="label on">ON</span>
+                  <span class="thumb" aria-hidden="true"></span>
+                  <span class="name">TV</span>
+                </button>
             </div>
         </aside>
 
-        <!-- Right control dock (middle right) -->
         <aside id="panel-right" aria-label="Right controls">
             <h2>Controls</h2>
             <div class="switches">
                 <button class="switch" data-device="fancylight" aria-pressed="false" aria-label="Fancy Light">
-          <span class="label off">OFF</span>
-          <span class="label on">ON</span>
-          <span class="thumb" aria-hidden="true"></span>
-          <span class="name">Fancy Light</span>
-        </button>
+                  <span class="label off">OFF</span>
+                  <span class="label on">ON</span>
+                  <span class="thumb" aria-hidden="true"></span>
+                  <span class="name">Fancy Light</span>
+                </button>
                 <button class="switch" data-device="lamp" aria-pressed="false" aria-label="Lamp">
-          <span class="label off">OFF</span>
-          <span class="label on">ON</span>
-          <span class="thumb" aria-hidden="true"></span>
-          <span class="name">Lamp</span>
-        </button>
+                  <span class="label off">OFF</span>
+                  <span class="label on">ON</span>
+                  <span class="thumb" aria-hidden="true"></span>
+                  <span class="name">Lamp</span>
+                </button>
             </div>
         </aside>
 
-        <!-- Hotspots on photo -->
         <button class="hotspot" id="hs-bigbulb" aria-label="Big bulb" type="button"></button>
         <button class="hotspot" id="hs-fancylight" aria-label="Fancy light" type="button"></button>
         <button class="hotspot" id="hs-lamp" aria-label="Lamp" type="button"></button>
         <button class="hotspot" id="hs-tv" aria-label="TV" type="button"></button>
 
-        <!-- Audio (optional) -->
+        <div id="scorePopup"></div>
+
         <audio id="snd-on"><source src="sounds/toggle-on.mp3" type="audio/mpeg"/></audio>
         <audio id="snd-off"><source src="sounds/toggle-off.mp3" type="audio/mpeg"/></audio>
         <audio id="snd-click"><source src="sounds/click.mp3" type="audio/mpeg"/></audio>
 
-        <!-- Pre-game instructions modal -->
         <section id="howto" role="dialog" aria-modal="true" aria-labelledby="howtoTitle" aria-describedby="howtoDesc">
             <div class="card">
                 <h3 id="howtoTitle">How to Play</h3>
@@ -90,7 +86,6 @@
             </div>
         </section>
 
-        <!-- End-of-round message -->
         <section id="endCard" role="dialog" aria-modal="true" aria-labelledby="endTitle" aria-describedby="endDesc">
             <div class="card">
                 <h3 id="endTitle">Great job!</h3>
