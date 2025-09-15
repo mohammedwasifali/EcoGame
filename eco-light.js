@@ -77,6 +77,22 @@ function toast(msg) {
     toast._t = setTimeout(function() { toastEl.classList.remove("show"); }, 1100);
 }
 
+/* --- NEW: Score Pop-up Function --- */
+var scorePopupTimeout;
+
+function showScorePopup(text) {
+    var popup = document.getElementById("scorePopup");
+    if (!popup) return;
+
+    popup.textContent = text;
+    popup.classList.add("show");
+
+    clearTimeout(scorePopupTimeout);
+    scorePopupTimeout = setTimeout(function() {
+        popup.classList.remove("show");
+    }, 1000); // Duration of the animation
+}
+
 /* RNG */
 function rand() { rngSeed = (rngSeed * 1664525 + 1013904223) >>> 0; return rngSeed / 4294967296; }
 
@@ -161,21 +177,19 @@ function start() {
         restartBtn.style.display = "inline-block";
         preloadKeys(["off"].concat(DEVICES));
 
-        // Switches: OFF-only — block ON at the source of truth (onSet)
         switches.forEach(function(btn) {
             btn.onclick = function() {
                 if (!running) return;
                 var d = btn.getAttribute("data-device");
-                var isOn = onSet.has(d); // authoritative state
+                var isOn = onSet.has(d);
                 if (!isOn) {
-                    // OFF -> do nothing (cannot turn ON)
                     toast("Switch can only turn OFF.");
                     return;
                 }
-                // ON -> allow turning OFF and scoring
                 onSet.delete(d);
                 play(sndOff);
                 score += 10;
+                showScorePopup("+10"); // Call pop-up
                 offCount += 1;
                 pointsEl.textContent = score + " pts";
                 play(sndClick);
@@ -184,7 +198,6 @@ function start() {
             };
         });
 
-        // Prevent keyboard ON via Enter/Space when device is OFF
         switches.forEach(function(btn) {
             btn.addEventListener("keydown", function(e) {
                 var d = btn.getAttribute("data-device");
@@ -196,7 +209,6 @@ function start() {
             });
         });
 
-        // Hotspots: turn OFF lit device (+10)
         DEVICES.forEach(function(name) {
             var el = hs[name];
             if (!el) return;
@@ -209,6 +221,7 @@ function start() {
                     syncPanel();
                     play(sndOff);
                     score += 10;
+                    showScorePopup("+10"); // Call pop-up
                     offCount += 1;
                     pointsEl.textContent = score + " pts";
                     play(sndClick);
@@ -217,7 +230,6 @@ function start() {
             };
         });
 
-        // Timer + occasional random ON (still allowed)
         timerId = setInterval(function() {
             var prev = Math.ceil(tLeft);
             tLeft -= tickMs / 1000;
