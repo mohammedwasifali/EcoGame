@@ -411,3 +411,41 @@ body.eco-page {
         right: 12px;
     }
 }
+
+
+/* --- NEW: Score Pop-up Styles --- */
+
+#scorePopup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--panel);
+    color: #4caf50;
+    /* Green text for +10 */
+    padding: 18px 36px;
+    border: 1px solid var(--panelBorder);
+    border-radius: 12px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    backdrop-filter: blur(6px);
+}
+
+#scorePopup.show {
+    animation: scorePopupAnimation 1s ease-out forwards;
+}
+
+@keyframes scorePopupAnimation {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -150%) scale(1.2);
+        /* Move up and fade out */
+    }
+}
