@@ -1,0 +1,120 @@
+/* Base */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0f1216;
+    color: #e6efe6;
+}
+
+
+/* Buttons */
+
+.btn-primary {
+    display: inline-block;
+    background: #4caf50;
+    color: #0f1216;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 999px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 22px rgba(76, 175, 80, 0.35);
+}
+
+.btn-primary:hover {
+    background: #3d9442;
+}
+
+.btn-secondary {
+    color: #4caf50;
+    border: 2px solid #4caf50;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.btn-secondary:hover {
+    background: #4caf50;
+    color: #0f1216;
+}
+
+
+/* Home hero */
+
+.home .hero {
+    text-align: center;
+    padding: 64px 20px 40px;
+    background: radial-gradient(1000px 500px at 50% -10%, #17202a 0%, #0f1216 60%);
+}
+
+.earth-wrap {
+    display: inline-block;
+    position: relative;
+    line-height: 0;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.earth-wrap::before {
+    content: "";
+    display: none;
+}
+
+.hero-earth {
+    position: relative;
+    z-index: 1;
+    width: 160px;
+    margin-bottom: 12px;
+    transition: transform .2s ease;
+}
+
+
+/* Sections */
+
+.hero h1 {
+    font-size: 3rem;
+    color: #7ce37c;
+    margin: 8px 0;
+}
+
+.hero p {
+    color: #acb8ac;
+    max-width: 720px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+}
+
+.info-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+    color: #c7d4c7;
+}
+
+footer {
+    text-align: center;
+    color: #8b948b;
+    padding: 14px;
+    background: #0b0d10;
+}
+
+
+/* Responsive */
+
+@media (max-width: 700px) {
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+}
