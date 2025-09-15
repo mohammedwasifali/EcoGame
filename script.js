@@ -94,7 +94,6 @@ function finishGameAndSave() {
     if (!playerName) return toast("Enter name first");
     upsertAndAddScore(playerName, sessionScore);
 
-    // Show end card and populate it with the session score
     const finalScoreEl = document.getElementById("finalScore");
     const finalItemsEl = document.getElementById("finalItems");
     const endCard = document.getElementById("endCard");
@@ -105,7 +104,7 @@ function finishGameAndSave() {
     document.body.classList.add("modal-open");
 
     sessionScore = 0;
-    toast("congratiulations"); // exact wording requested
+    toast("congratiulations");
 }
 
 // Play again
@@ -114,7 +113,7 @@ function playAgain() {
     if (endCard) endCard.classList.remove("show");
     document.body.classList.remove("modal-open");
     resetRound(true);
-    writeScore(0); // Display 0 score for the new session
+    writeScore(0);
 }
 
 // Items and bins helpers
@@ -166,14 +165,15 @@ function handleDrop(itemEl, binType) {
         itemsSortedCount++;
         itemEl.style.display = "none";
         toast(praiseMessage(binType));
+        showScorePopup("+10", true); // Call pop-up for correct answer
     } else {
         sessionScore = Math.max(0, sessionScore - 5);
         toast(critiqueMessage(id, binType));
+        showScorePopup("-5", false); // Call pop-up for incorrect answer
     }
 
-    writeScore(sessionScore); // Display the current session score
+    writeScore(sessionScore);
 
-    // If all items are done, finish the game
     if (getVisibleItems().length === 0) {
         finishGameAndSave();
     }
@@ -192,6 +192,25 @@ function enableKeyboardDrops() {
         e.preventDefault();
         handleDrop(active, bin);
     });
+}
+
+// --- NEW: Function to show the score pop-up ---
+let scorePopupTimeout;
+
+function showScorePopup(text, isCorrect) {
+    const popup = document.getElementById("scorePopup");
+    if (!popup) return;
+
+    popup.textContent = text;
+    popup.classList.remove("correct", "incorrect");
+    popup.classList.add(isCorrect ? "correct" : "incorrect");
+
+    popup.classList.add("show");
+
+    clearTimeout(scorePopupTimeout);
+    scorePopupTimeout = setTimeout(() => {
+        popup.classList.remove("show");
+    }, 1000); // Duration of the animation
 }
 
 // UI helpers
@@ -266,7 +285,6 @@ const critiqueMessage = (id, target) => {
 }
 
 // —— Randomization ——
-// Fisher–Yates shuffle (unbiased) [11][6]
 function shuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -275,7 +293,6 @@ function shuffle(arr) {
     return arr;
 }
 
-// Keep visible items inside bounds after resize
 function keepInBounds(items) {
     items.forEach(el => {
         const leftPct = Math.min(98, Math.max(0, parseFloat(el.style.left) || 0));
@@ -285,7 +302,6 @@ function keepInBounds(items) {
     });
 }
 
-// Random positions within game area, away from bottom bins with light de-clumping
 function setRandomPositions(items) {
     const game = document.getElementById("game");
     if (!game) return;
