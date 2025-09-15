@@ -57,69 +57,6 @@ body {
 }
 
 
-/* Home hero */
-
-.home .hero {
-    text-align: center;
-    padding: 64px 20px 40px;
-    background: radial-gradient(1000px 500px at 50% -10%, #17202a 0%, #0f1216 60%);
-}
-
-
-/* Disable halo effects on home */
-
-.earth-wrap {
-    display: inline-block;
-    position: relative;
-    line-height: 0;
-    border-radius: 50%;
-    padding: 0;
-}
-
-.earth-wrap::before {
-    content: "";
-    display: none;
-}
-
-.hero-earth {
-    position: relative;
-    z-index: 1;
-    width: 160px;
-    margin-bottom: 12px;
-    transition: transform .2s ease;
-}
-
-
-/* Sections */
-
-.hero h1 {
-    font-size: 3rem;
-    color: #7ce37c;
-    margin: 8px 0;
-}
-
-.hero p {
-    color: #acb8ac;
-    max-width: 720px;
-    margin: 0 auto 28px;
-    line-height: 1.6;
-}
-
-.info-section {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 24px 20px 60px;
-    color: #c7d4c7;
-}
-
-footer {
-    text-align: center;
-    color: #8b948b;
-    padding: 14px;
-    background: #0b0d10;
-}
-
-
 /* Game header */
 
 .game-header {
@@ -237,7 +174,6 @@ footer {
     position: fixed;
     left: 12px;
     bottom: 60px;
-    /* Adjusted from 18px to 60px */
     background: rgba(8, 10, 12, 0.92);
     color: #e7ffe7;
     border: 1px solid rgba(124, 227, 124, .35);
@@ -295,9 +231,6 @@ footer {
 /* Responsive */
 
 @media (max-width: 700px) {
-    .hero h1 {
-        font-size: 2.2rem;
-    }
     #game {
         height: calc(100vh - 112px);
     }
@@ -319,7 +252,7 @@ footer {
 }
 
 
-/* Modals from Energy.html to fix game.html */
+/* Modals */
 
 body.modal-open {
     overflow: hidden;
@@ -380,4 +313,61 @@ body.modal-open {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+}
+
+
+/* --- NEW: Score Pop-up Styles --- */
+
+#scorePopup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(15, 18, 22, 0.85);
+    /* Black box */
+    padding: 18px 36px;
+    border-radius: 12px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    z-index: 100;
+    pointer-events: none;
+    /* Can't be clicked */
+    opacity: 0;
+    /* Hidden by default */
+    transition: opacity 0.3s ease;
+}
+
+
+/* Animation trigger */
+
+#scorePopup.show {
+    animation: scorePopupAnimation 1s ease-out forwards;
+}
+
+
+/* Color modifiers */
+
+#scorePopup.correct {
+    color: #4caf50;
+    /* Green */
+}
+
+#scorePopup.incorrect {
+    color: #f44336;
+    /* Red */
+}
+
+
+/* Keyframe Animation */
+
+@keyframes scorePopupAnimation {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -150%) scale(1.2);
+        /* Move up and fade out */
+    }
 }
