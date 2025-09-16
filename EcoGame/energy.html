@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EcoGame • Energy Saver Match</title>
+    <link rel="stylesheet" href="energy.css" />
+</head>
+
+<body class="energy-page">
+    <header class="game-header">
+        <h1>Energy Saver Match</h1>
+        <div style="display:flex; gap:10px; align-items:center;">
+            <a href="index.html" class="btn-secondary">Home</a>
+            <a href="leaderboard.html" class="btn-secondary">Leaderboard</a>
+        </div>
+    </header>
+
+    <main id="board" aria-label="Memory board">
+        <section id="hud" aria-label="Game controls">
+            <input type="text" id="playerName" placeholder="Name" aria-label="Player name" />
+            <button id="startBtn" class="btn-primary small" type="button">Start</button>
+            <button id="restartBtn" class="btn-primary small" type="button" style="display:none;">Restart</button>
+            <span id="moves">Moves: 0</span>
+            <span id="score">+0</span>
+        </section>
+
+        <div id="grid" class="grid" aria-live="polite" role="region"></div>
+
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </main>
+
+    <script src="energy.js"></script>
+</body>
+
+</html>
