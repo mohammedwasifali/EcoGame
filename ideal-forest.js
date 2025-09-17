@@ -80,7 +80,8 @@ function updateSharedPoints(name, newTotal) {
 }
 
 // ===== Costs =====
-const COST = { tree: 1, water: 1, wind: 1 };
+// Reverted to original point costs
+const COST = { tree: 1000, water: 500, wind: 5000 };
 
 // ===== Assets =====
 const AS = {
@@ -128,7 +129,7 @@ const player = {
     x: CANVAS.width * 0.5,
     y: CANVAS.height * 0.8,
     speed: 260,
-    points: 100, // Starting with some points for easier testing
+    points: 100,
     wind: 0,
     growthBoost: 1.0,
     selected: -1
@@ -256,7 +257,7 @@ function selectNextTree() {
 }
 
 function plant(x, y) {
-    if (player.points < COST.tree) { toast(`Need ${COST.tree} pt to plant 🌳`); return; }
+    if (player.points < COST.tree) { toast(`Need ${COST.tree} pts to plant 🌳`); return; }
     x = Math.max(40, Math.min(world.w - 40, x));
     y = Math.max(200, Math.min(world.h - 40, y));
     trees.push({ x, y, stage: 1 });
@@ -282,7 +283,7 @@ function nearestTree(x, y, dist = 36) {
 function waterSelected() {
     const i = player.selected;
     if (i < 0 || !trees[i]) { toast('Select a plant first.'); return; }
-    if (player.points < COST.water) { toast(`Need ${COST.water} pt to water`); return; }
+    if (player.points < COST.water) { toast(`Need ${COST.water} pts to water`); return; }
 
     const t = trees[i];
     if (t.stage >= 3) { toast('This tree is fully grown.'); return; }
@@ -293,10 +294,9 @@ function waterSelected() {
 }
 
 function buildWind() {
-    if (player.points < COST.wind) { toast(`Need ${COST.wind} pt to build windmill`); return; }
+    if (player.points < COST.wind) { toast(`Need ${COST.wind} pts to build windmill`); return; }
     const x = Math.max(60, Math.min(world.w - 60, player.x));
     const y = Math.max(240, Math.min(world.h - 60, player.y));
-    // UPDATED: 1 point per 30 minutes (1800 seconds)
     winds.push({ x, y, rot: 0, pps: 1 / 1800 });
     player.wind += 1;
     player.points -= COST.wind;
@@ -307,8 +307,9 @@ function sellSelected() {
     const i = player.selected;
     if (i < 0 || !trees[i]) { toast('Select a plant first.'); return; }
     trees.splice(i, 1);
-    player.points += 1;
+    player.points += 5; // Reverted to +5 points
     player.selected = -1;
+    toast('Removed tree (+5 pts)'); // Updated toast message
     updateHUD();
 }
 
@@ -402,14 +403,10 @@ function draw() {
             CTX.translate(w.x, w.y);
             CTX.strokeStyle = 'white';
             CTX.beginPath();
-            CTX.moveTo(0, 0);
-            CTX.lineTo(24, 0);
-            CTX.moveTo(0, 0);
-            CTX.lineTo(-24, 0);
-            CTX.moveTo(0, 0);
-            CTX.lineTo(0, 24);
-            CTX.moveTo(0, 0);
-            CTX.lineTo(0, -24);
+            CTX.moveTo(0, 0); CTX.lineTo(24, 0);
+            CTX.moveTo(0, 0); CTX.lineTo(-24, 0);
+            CTX.moveTo(0, 0); CTX.lineTo(0, 24);
+            CTX.moveTo(0, 0); CTX.lineTo(0, -24);
             CTX.stroke();
             CTX.restore();
         }
@@ -460,3 +457,7 @@ function tryPlayBg() {
 document.addEventListener('pointerdown', tryPlayBg, { once: true });
 document.addEventListener('keydown', tryPlayBg, { once: true });
 document.addEventListener('DOMContentLoaded', boot);
+
+// ADDED AUTOSAVE
+setInterval(save, 5000); // Autosave every 5 seconds
+window.addEventListener('beforeunload', save); // Save when closing the page
