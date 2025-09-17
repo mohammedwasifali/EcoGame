@@ -206,13 +206,46 @@ body {
 
 /* New Game Section */
 
-.new-game-text {
+.new-game-content {
     max-width: 600px;
     margin: 0 auto;
     font-size: 1.1rem;
     line-height: 1.7;
     color: #acb8ac;
     padding-bottom: 20px;
+}
+
+.new-game-subtitle {
+    font-size: 1.2rem;
+    color: #e6efe6;
+    margin-bottom: 30px;
+}
+
+
+/* PURPLE NEON BUTTON STYLES */
+
+.btn-neon {
+    display: inline-block;
+    /* INCREASED PADDING AND FONT-SIZE */
+    padding: 20px 40px;
+    font-size: 1.5rem;
+    color: #d8b4fe;
+    background-color: transparent;
+    border: 2px solid #d8b4fe;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 5px #d8b4fe, 0 0 10px #d8b4fe;
+}
+
+.btn-neon:hover {
+    color: #fff;
+    background-color: #d8b4fe;
+    box-shadow: 0 0 10px #d8b4fe, 0 0 20px #d8b4fe, 0 0 40px #d8b4fe;
 }
 
 
