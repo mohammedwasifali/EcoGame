@@ -13,15 +13,11 @@
         <h1>Leaderboard</h1>
         <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
             <a href="index.html" class="btn-secondary">Back</a>
-            <!-- Play button removed as requested -->
         </div>
     </header>
 
     <section class="info-section">
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-            <ul id="lb" style="list-style:none; padding:0; margin:0; flex:1;"></ul>
-            <button id="clearDataBtn" class="btn-secondary" type="button">Clear my data</button>
-        </div>
+        <ul id="lb" style="list-style:none; padding:0; margin:0; flex:1;"></ul>
     </section>
 
     <script>
@@ -47,13 +43,8 @@
         </li>`;
             }).join('') : '<li>No scores yet.</li>';
         }
-        document.getElementById('clearDataBtn').addEventListener('click', () => {
-            try {
-                localStorage.removeItem(KEY);
-            } catch (e) {}
-            render();
-            alert('Local leaderboard data cleared on this device.');
-        });
+
+        // REMOVED THE EVENT LISTENER FOR THE "clearDataBtn"
         render();
     </script>
 </body>
